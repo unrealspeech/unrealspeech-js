@@ -1,16 +1,20 @@
 {
   "name": "unrealspeech",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
-  "main": "api.js",
+  "main": "dist/api.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node api.js"
+    "start": "tsc src/api.ts && node main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.1",
+    "typescript": "^5.3.2"
   }
 }
