@@ -8,6 +8,56 @@ Unreal Speech JavaScript SDK allows you to easily integrate the Unreal Speech AP
 npm i unrealspeech
 ```
 
+## Available endpoints
+
+| Endpoint                 | Description                                  |
+| ------------------------ | -------------------------------------------- |
+| `/stream`                | Stream audio for short, time-sensitive cases |
+| `/speech`                | Generate speech with options (MP3 format)    |
+| `/synthesisTasks`        | Manage synthesis tasks for longer text       |
+| `/synthesisTasks/TaskId` | Check the status of a synthesis task         |
+
+## Common Request Body Schema
+
+| Property | Type   | Required? | Default Value | Allowed Values                             |
+| -------- | ------ | --------- | ------------- | ------------------------------------------ |
+| VoiceId  | string | Required  | N/A           | Scarlett, Liv, Dan, Will, Amy              |
+| Bitrate  | string | Optional  | 192k          | 16k, 32k, 48k, 64k, 128k, 192k, 256k, 320k |
+| Speed    | float  | Optional  | 0             | -1.0 to 1.0                                |
+| Pitch    | float  | Optional  | 1.0           | 0.5 to 1.5                                 |
+
+## Parameter Details
+
+- **VoiceId:**
+
+  - Dan: Young Male
+  - Will: Mature Male
+  - Scarlett: Young Female
+  - Liv: Young Female
+  - Amy: Mature Female
+
+- **Bitrate:** Defaults to 192k. Use lower values for low bandwidth or to reduce the transferred file size. Use higher values for higher fidelity.
+
+- **Speed:** Defaults to 0. Examples:
+
+  - 0.5: makes the audio 50% faster. (i.e., 60-second audio becomes 42 seconds)
+  - -0.5: makes the audio 50% slower. (i.e., 60-second audio becomes 90 seconds.)
+
+- **Pitch:** Defaults to 1. However, on the landing page, we default male voices to 0.92 as people tend to prefer lower/deeper male voices.
+
+## Rate Limit
+
+| Plan  | Requests per second |
+| ----- | ------------------- |
+| Free  | 1                   |
+| Basic | 2                   |
+| Pro   | 8                   |
+
+## Obtaining an API Key
+
+[Get your API Key](https://unrealspeech.com)
+To use the Unreal Speech API, you'll need to obtain an API key by signing up for an account on the Unreal Speech website. Once you have an API key, you can use it to initialize the UnrealSpeechAPI class.
+
 ## Usage
 
 To use the SDK, you need to initialize it with your API key and other required configurations.
@@ -131,16 +181,8 @@ Include common issues and their solutions.
 
 ## Contributing
 
-Information on how to contribute to the SDK, guidelines, and code of conduct.
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
 ## License
 
-Information about the license under which the SDK is distributed.
-
-## Support
-
-Contact information for support and assistance.
-
-## Version History
-
-Details of version updates and changes.
+This project is licensed under the MIT License - see the LICENSE file for details.
