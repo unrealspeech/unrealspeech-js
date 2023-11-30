@@ -10,7 +10,7 @@ interface ISynthesisTaskResponse {
     VoiceId: string;
   };
 }
-class UnrealSpeechAPI {
+class UnrealSpeech {
   private api_key: string;
   private base_url: string;
   private headers: Record<string, string>;
@@ -133,4 +133,4 @@ class UnrealSpeechAPI {
   }
 }
 
-export default UnrealSpeechAPI;
+export default UnrealSpeech;

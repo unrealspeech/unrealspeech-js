@@ -1,12 +1,13 @@
 {
   "name": "unrealspeech",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
-  "main": "dist/api.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc src/api.ts && node main.js"
+    "start": "",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
