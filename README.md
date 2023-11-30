@@ -64,8 +64,8 @@ To use the SDK, you need to initialize it with your API key and other required c
 Initialization
 
 ```javascript
-import { UnrealSpeech, play, save } from "unrealspeech";
-const unrealSpeech = new UnrealSpeech("your_api_key");
+import { UnrealSpeechAPI, play, save } from "unrealspeech";
+const unrealSpeech = new UnrealSpeechAPI("your_api_key");
 ```
 
 ### Methods
