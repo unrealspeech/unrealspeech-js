@@ -142,7 +142,7 @@ const speechBuffer = await unrealSpeech.stream(
   "Hello, world!",
   "Scarlett",
   "192k",
-  1.5,
+  0,
   1.0,
   "libmp3lame",
   0.25
