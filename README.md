@@ -2,6 +2,18 @@
 
 Unreal Speech JavaScript SDK allows you to easily integrate the Unreal Speech API into your JavaScript applications for text-to-speech (TTS) synthesis. This package provides convenient methods for working with the Unreal Speech API, including generating speech, managing synthesis tasks, and streaming audio.
 
+To use the `play` utility, you should have FFmpeg installed on your system
+
+## FFmpeg Installation
+
+### Windows
+
+**Download FFmpeg**: Go to the FFmpeg official website (https://ffmpeg.org/download.html) and download the latest build for Windows.
+
+### Mac
+
+**Install Homebrew**: If not already installed, open Terminal and run `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`.
+
 ## You can install the Unreal Speech JavaScript SDK via npm:
 
 ```bash
@@ -128,7 +140,7 @@ This method streams the synthesized speech based on the provided parameters.
 ```javascript
 const speechBuffer = await unrealSpeech.stream(
   "Hello, world!",
-  "voice123",
+  "Scarlett",
   "192k",
   1.5,
   1.0,
@@ -148,7 +160,7 @@ save(speechBuffer, "filename.mp3");
 ```javascript
 const taskId = await unrealSpeech.createSynthesisTask(
   "Hello, world!",
-  "voice123",
+  "Scarlett",
   "192k",
   "word"
 );
@@ -168,12 +180,16 @@ console.log(status); // Use the status of the synthesis task as needed
 ```javascript
 const speechData = await unrealSpeech.speech(
   "Hello, world!",
-  "voice123",
+  "Scarlett",
   "192k",
   "word"
 );
 console.log(speechData); // Use the synthesized speech data as needed
 ```
+
+## Code sample
+
+You can find a code example here: [code](https://github.com/unrealspeech/examples/tree/rn-node-backend)
 
 ## Troubleshooting
 

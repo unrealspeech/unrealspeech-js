@@ -26,7 +26,7 @@ class UnrealSpeech {
 
   async stream(
     text: string,
-    voiceId: string,
+    voiceId: string = "Scarlett",
     bitrate: string = "192k",
     speed: number = 0,
     pitch: number = 1.0,
@@ -49,7 +49,7 @@ class UnrealSpeech {
 
   async createSynthesisTask(
     text: string,
-    voiceId: string,
+    voiceId: string = "Scarlett",
     bitrate: string = "192k",
     timestampType: string = "word"
   ): Promise<string> {
