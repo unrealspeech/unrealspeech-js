@@ -1,13 +1,12 @@
 {
   "name": "unrealspeech",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "",
   "main": "dist/index.js",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     },
     "./src": "./src"
   },
@@ -19,6 +18,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "fs": "^0.0.1-security",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {

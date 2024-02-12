@@ -51,7 +51,9 @@ class UnrealSpeech {
     text: string,
     voiceId: string = "Scarlett",
     bitrate: string = "192k",
-    timestampType: string = "word"
+    timestampType: string = "word",
+    speed: number = 0,
+    pitch: number = 1.0
   ): Promise<string> {
     const url = `${this.base_url}/synthesisTasks`;
     const payload = {
@@ -59,6 +61,8 @@ class UnrealSpeech {
       VoiceId: voiceId,
       Bitrate: bitrate,
       TimestampType: timestampType,
+      Speed: speed,
+      Pitch: pitch,
     };
     const response = await this._makePostRequest(url, payload);
     const data = (await response.json()) as ISynthesisTaskResponse;
@@ -93,7 +97,9 @@ class UnrealSpeech {
     text: string,
     voiceId: string = "Scarlett",
     bitrate: string = "320k",
-    timestampType: string = "sentence"
+    timestampType: string = "sentence",
+    speed: number = 0,
+    pitch: number = 1.0
   ): Promise<any> {
     // Define a more specific type if possible
     const url = `${this.base_url}/speech`;
@@ -103,6 +109,8 @@ class UnrealSpeech {
       Bitrate: bitrate,
       OutputFormat: "uri",
       TimestampType: timestampType,
+      Speed: speed,
+      Pitch: pitch,
     };
     const response = await this._makePostRequest(url, payload);
     return response.json();

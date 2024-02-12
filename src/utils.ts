@@ -1,8 +1,8 @@
 // audioUtils.ts
 import { spawn } from "child_process";
-import fs from "fs";
+import { promises as fsPromises } from "fs";
 
-export function play(buffer: Buffer): void {
+export async function play(buffer: Buffer): Promise<void> {
   // Spawn an ffplay process
   const ffplay = spawn("ffplay", ["-i", "-"]);
 
@@ -10,7 +10,7 @@ export function play(buffer: Buffer): void {
   ffplay.stdin.write(buffer);
 }
 
-export function save(buffer: Buffer, filename: string): void {
-  // Write the buffer to a file
-  fs.writeFileSync(filename, buffer);
+export async function save(buffer: Buffer, filename: string): Promise<void> {
+  // Write the buffer to a file using promises-based API
+  await fsPromises.writeFile(filename, buffer);
 }

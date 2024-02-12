@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "ESNext",
+    "target": "ES6", // Set your target JavaScript version
+    "module": "ESNext", // Use ES modules
     "moduleResolution": "node",
-    "strict": true,
-    "outDir": "./dist",
-    "declaration": true,
-    "baseUrl": "./",
+    "strict": true, // Enable strict type checking
+    "outDir": "./dist", // Output directory for compiled JavaScript
+    "declaration": true, // Generate declaration files (.d.ts)
+    "baseUrl": "./", // Base URL for module resolution
+    "typeRoots": ["./types", "./node_modules/@types"], // Type declaration roots
     "paths": {
       "*": ["src/*"]
     }
