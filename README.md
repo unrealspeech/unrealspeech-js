@@ -138,16 +138,17 @@ Returns: A promise that resolves to the synthesized speech data.
 This method streams the synthesized speech based on the provided parameters.
 
 ```javascript
-const speechBuffer = await unrealSpeech.stream(
-  "Hello, world!",
-  "Scarlett",
-  "192k",
-  0,
-  1.0,
-  "libmp3lame",
-  0.25
-);
-// Use the synthesized speech buffer as needed
+import { UnrealSpeechAPI, play, save } from "unrealspeech";
+const unrealSpeech = new UnrealSpeechAPI("your_api_key");
+
+const speechBuffer = await unrealSpeech.stream({
+  text: "Hello, world!",
+  voiceId: "Scarlett",
+  bitrate: "192k",
+  timestampType: "word",
+  speed:0,
+  pitch: 1.0
+});
 
 // play audio
 play(speechBuffer);
@@ -158,12 +159,15 @@ save(speechBuffer, "filename.mp3");
 #### createSynthesisTask
 
 ```javascript
-const taskId = await unrealSpeech.createSynthesisTask(
-  "Hello, world!",
-  "Scarlett",
-  "192k",
-  "word"
-);
+const taskId = await unrealSpeech.createSynthesisTask({
+ 	text:  "Hello, world!",
+  voiceId: "Scarlett",
+  bitrate: "192k",
+  timestampType: "word",
+  speed: 0,
+  pitch: 1.0
+});
+
 console.log(taskId); // Use the ID of the created synthesis task as needed
 ```
 
@@ -178,12 +182,15 @@ console.log(status); // Use the status of the synthesis task as needed
 #### speech
 
 ```javascript
-const speechData = await unrealSpeech.speech(
-  "Hello, world!",
-  "Scarlett",
-  "192k",
-  "word"
-);
+const speechData = await unrealSpeech.speech({
+ 	text:  "Hello, world!",
+  voiceId: "Scarlett",
+  bitrate: "192k",
+  timestampType: "word",
+  speed: 0,
+  pitch: 1.0
+});
+
 console.log(speechData); // Use the synthesized speech data as needed
 ```
 
