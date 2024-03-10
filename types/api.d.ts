@@ -22,17 +22,42 @@ export interface UnrealSpeechOptions {
   timestampType?: string;
 }
 
-export default class UnrealSpeech {
-  private api_key: string;
-  private base_url: string;
-  private headers: Record<string, string>;
+interface ISynthesisTaskResponse {
+  SynthesisTask: {
+    CreationTime: string;
+    OutputUri: string;
+    RequestCharacters: string;
+    TaskId: string;
+    TaskStatus: string;
+    VoiceId: string;
+  };
+}
 
-  constructor(api_key: string);
+interface StreamPayload {
+  Text: string;
+  VoiceId: string;
+  Bitrate: string;
+  Speed: number;
+  Pitch: number;
+  Codec: string;
+  Temperature: number;
+}
 
-  stream(options: UnrealSpeechOptions): Promise<Buffer>;
-  createSynthesisTask(options: UnrealSpeechOptions): Promise<string>;
-  getSynthesisTaskStatus(
-    taskId: string
-  ): Promise<ISynthesisTaskResponse["SynthesisTask"]>;
-  speech(options: UnrealSpeechOptions): Promise<any>;
+interface SynthesisTaskPayload {
+  Text: string[];
+  VoiceId: string;
+  Bitrate: string;
+  TimestampType: string;
+  Speed: number;
+  Pitch: number;
+}
+
+interface SpeechPayload {
+  Text: string;
+  VoiceId: string;
+  Bitrate: string;
+  OutputFormat: string;
+  TimestampType: string;
+  Speed: number;
+  Pitch: number;
 }
