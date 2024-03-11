@@ -1,19 +1,19 @@
 {
   "name": "unrealspeech",
-  "version": "1.0.8",
+  "version": "1.8.6",
   "description": "",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js"
-    },
-    "./src": "./src"
+  "homepage": "https://docs.unrealspeech.com",
+  "repository": {
+    "url": "https://github.com/unrealspeech/unrealspeech-js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "",
-    "build": "tsc"
+    "build": "tsup src/index.ts --format cjs,esm --dts --outDir dist",
+    "dev": "tsup src/index.ts --watch --format cjs,esm --dts --outDir dist"
   },
   "author": "",
   "license": "MIT",
@@ -22,7 +22,8 @@
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@types/node": "^20.10.1",
-    "typescript": "^5.3.2"
+    "@types/node": "^20.11.25",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.2"
   }
 }

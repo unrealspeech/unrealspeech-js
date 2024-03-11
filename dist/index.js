@@ -1,119 +1,83 @@
-import fetch, { Response } from "node-fetch";
-import {
-  ISynthesisTaskResponse,
-  SpeechPayload,
-  StreamPayload,
-  SynthesisTaskPayload,
-} from "./types";
-
-class UnrealSpeech {
-  private api_key: string;
-  private base_url: string;
-  private headers: Record<string, string>;
-
-  constructor(api_key: string) {
+// src/api.ts
+import fetch from "node-fetch";
+var UnrealSpeech = class {
+  api_key;
+  base_url;
+  headers;
+  constructor(api_key) {
     this.api_key = api_key;
     this.base_url = "https://api.v6.unrealspeech.com";
     this.headers = {
       Authorization: `Bearer ${api_key}`,
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     };
   }
-
-  async stream(
-    text: string,
-    voiceId: string = "Scarlett",
-    bitrate: string = "192k",
-    speed: number = 0,
-    pitch: number = 1.0,
-    codec: string = "libmp3lame",
-    temperature: number = 0.25
-  ): Promise<Buffer> {
+  async stream(text, voiceId = "Scarlett", bitrate = "192k", speed = 0, pitch = 1, codec = "libmp3lame", temperature = 0.25) {
     const url = `${this.base_url}/stream`;
-    const payload: StreamPayload = {
+    const payload = {
       Text: text,
       VoiceId: voiceId,
       Bitrate: bitrate,
       Speed: speed,
       Pitch: pitch,
       Codec: codec,
-      Temperature: temperature,
+      Temperature: temperature
     };
     const response = await this._makePostRequest(url, payload);
     return response.buffer();
   }
-
-  async createSynthesisTask(
-    text: string,
-    voiceId: string = "Scarlett",
-    bitrate: string = "192k",
-    timestampType: string = "word",
-    speed: number = 0,
-    pitch: number = 1.0
-  ): Promise<string> {
+  async createSynthesisTask(text, voiceId = "Scarlett", bitrate = "192k", timestampType = "word", speed = 0, pitch = 1) {
     const url = `${this.base_url}/synthesisTasks`;
-    const payload: SynthesisTaskPayload = {
+    const payload = {
       Text: [text],
       VoiceId: voiceId,
       Bitrate: bitrate,
       TimestampType: timestampType,
       Speed: speed,
-      Pitch: pitch,
+      Pitch: pitch
     };
     const response = await this._makePostRequest(url, payload);
-    const data = (await response.json()) as ISynthesisTaskResponse;
+    const data = await response.json();
     return data.SynthesisTask?.TaskId || "";
   }
-
-  async getSynthesisTaskStatus(
-    taskId: string
-  ): Promise<ISynthesisTaskResponse["SynthesisTask"]> {
+  async getSynthesisTaskStatus(taskId) {
     const url = `${this.base_url}/synthesisTasks/${taskId}`;
     let attempts = 0;
     const maxAttempts = 10;
     while (attempts < maxAttempts) {
       const response = await this._makeGetRequest(url);
-      const data = (await response.json()) as ISynthesisTaskResponse;
+      const data = await response.json();
       const taskStatus = data.SynthesisTask;
       if (taskStatus?.TaskStatus === "completed") {
         return taskStatus;
       } else {
         console.log("Audiobook generation is in progress.");
         attempts++;
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2e3));
       }
     }
     throw new Error("Task status check exceeded maximum attempts");
   }
-
-  async speech(
-    text: string,
-    voiceId: string = "Scarlett",
-    bitrate: string = "320k",
-    timestampType: string = "sentence",
-    speed: number = 0,
-    pitch: number = 1.0
-  ): Promise<any> {
+  async speech(text, voiceId = "Scarlett", bitrate = "320k", timestampType = "sentence", speed = 0, pitch = 1) {
     const url = `${this.base_url}/speech`;
-    const payload: SpeechPayload = {
+    const payload = {
       Text: text,
       VoiceId: voiceId,
       Bitrate: bitrate,
       OutputFormat: "uri",
       TimestampType: timestampType,
       Speed: speed,
-      Pitch: pitch,
+      Pitch: pitch
     };
     const response = await this._makePostRequest(url, payload);
     return response.json();
   }
-
-  private async _makePostRequest(url: string, data: any): Promise<Response> {
+  async _makePostRequest(url, data) {
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: this.headers,
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
       return this._handleResponse(response);
     } catch (error) {
@@ -121,12 +85,11 @@ class UnrealSpeech {
       throw error;
     }
   }
-
-  private async _makeGetRequest(url: string): Promise<Response> {
+  async _makeGetRequest(url) {
     try {
       const response = await fetch(url, {
         method: "GET",
-        headers: this.headers,
+        headers: this.headers
       });
       return this._handleResponse(response);
     } catch (error) {
@@ -134,13 +97,27 @@ class UnrealSpeech {
       throw error;
     }
   }
-
-  private async _handleResponse(response: Response): Promise<Response> {
+  async _handleResponse(response) {
     if (!response.ok) {
       throw new Error(`HTTP error: ${response.status}`);
     }
     return response;
   }
-}
+};
+var api_default = UnrealSpeech;
 
-export default UnrealSpeech;
+// src/utils.ts
+import { spawn } from "child_process";
+import { promises as fsPromises } from "fs";
+async function play(buffer) {
+  const ffplay = spawn("ffplay", ["-i", "-"]);
+  ffplay.stdin.write(buffer);
+}
+async function save(buffer, filename) {
+  await fsPromises.writeFile(filename, buffer);
+}
+export {
+  api_default as default,
+  play,
+  save
+};

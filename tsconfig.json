@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES6", // Set your target JavaScript version
-    "module": "ESNext", // Use ES modules
-    "moduleResolution": "node",
-    "strict": true, // Enable strict type checking
-    "outDir": "./dist", // Output directory for compiled JavaScript
-    "declaration": true, // Generate declaration files (.d.ts)
-    "baseUrl": "./", // Base URL for module resolution
-    "typeRoots": ["./types", "./node_modules/@types"], // Type declaration roots
-    "paths": {
-      "*": ["src/*"]
-    }
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "target": "ES2022",
+    "moduleResolution": "Node10",
+    "module": "ES2022",
+    "declaration": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "outDir": "dist"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
