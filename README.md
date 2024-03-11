@@ -76,7 +76,7 @@ To use the SDK, you need to initialize it with your API key and other required c
 Initialization
 
 ```javascript
-import { UnrealSpeechAPI, play, save } from "unrealspeech";
+import UnrealSpeech, {play, save } from "unrealspeech";
 const unrealSpeech = new UnrealSpeechAPI("your_api_key");
 ```
 
@@ -138,7 +138,7 @@ Returns: A promise that resolves to the synthesized speech data.
 This method streams the synthesized speech based on the provided parameters.
 
 ```javascript
-import { UnrealSpeechAPI, play, save } from "unrealspeech";
+import UnrealSpeech, {play, save } from "unrealspeech";
 const unrealSpeech = new UnrealSpeechAPI("your_api_key");
 
 const speechBuffer = await unrealSpeech.stream({
